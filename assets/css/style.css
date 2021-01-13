@@ -28,21 +28,36 @@ textarea{
 .time-block{
   text-align: center;
   border-radius: 15px;
-  color:green;
-  background-color: green;
-
+  color:#000000;
+  /* background-color:rgb(211, 233, 151); */
+  
 }
-
 .row {
   white-space: pre-wrap;
   height: 80px;
-  border-top: 1px solid white;;
-}
+  border-top: 10px solid white;
+  border-bottom: 10px solid white;
+  }
+
+.todo-block{
+  width: 100%;
+  text-align: left;
+  /* border-radius: 15px; */
+  color:#000000;
+  background-color:rgb(211, 233, 151);
+  border-style: solid;
+  border-width: 5px;
+  border-color: purple;
+  }
+
+
+
 
 .hour {
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
+  border-radius:0px;
 }
 
 
@@ -53,7 +68,6 @@ textarea{
 
 
 .present {
-  font-size: 3em;
   background-color: #ff6961;
   color: white;
 }
@@ -64,6 +78,9 @@ textarea{
 }
 
 .saveBtn {
+  
+vertical-align: middle;
+  padding:30px;
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
