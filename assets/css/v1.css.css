@@ -23,30 +23,49 @@ textarea{
 
 .description{
   white-space: pre-wrap;
-  border:1px solid red;
 }
 
 .time-block{
   text-align: center;
   border-radius: 15px;
+  color:#000000;
+  /* background-color:rgb(211, 233, 151); */
+  
 }
-
 .row {
   white-space: pre-wrap;
   height: 80px;
-  border-top: 1px solid white;;
-}
+  border-top: 10px solid white;
+  border-bottom: 10px solid white;
+  }
+
+.todo-block{
+  width: 100%;
+  text-align: left;
+  /* border-radius: 15px; */
+  color:#000000;
+  background-color:rgb(211, 233, 151);
+  border-style: solid;
+  border-width: 5px;
+  border-color: purple;
+  }
+
+
+
 
 .hour {
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
+  border-radius:0px;
 }
 
+
 .past {
-  background-color: #d3d3d3;
+  background-color: #100541;
   color: white;
 }
+
 
 .present {
   background-color: #ff6961;
@@ -58,12 +77,8 @@ textarea{
   color: white;
 }
 
-.btn-col{
-  padding-left:0;
-}
-
 .saveBtn {
-  padding:2em;
+  padding:1em;
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
