@@ -32,11 +32,11 @@ $("#currentDay").text(cDay);
 
 
 
-let currentHour = moment().format("HH:mm")
+let cTime = moment().format("HH:mm")
+let cHour = moment().format("HH");
 
-
-console.log(`time is ${currentHour}`);
-
+console.log(`time is ${cTime}`);
+console.log(`hour is ${cHour}`);
 
 
 
@@ -58,46 +58,27 @@ console.log(`time is ${currentHour}`);
 $(document).ready( function () {
   console.log("ready");
   $("textarea").addClass("present");
-
-  for (i = 9; i <= 17; i++) {
-    timeToCheck = `${i}:00`;
-    console.log(timeToCheck);
-    nextID = "#".concat(`${i}`);
-    console.log(nextID);
-    var nextEl = $("nextID");
-
-    console.log(nextEl);
-  }
+  var testHourEl = $("div[data-hour='02:00']");
+  var testHour = testHourEl.attr('data-hour'); 
   
-    // var nextEl = $("textarea[data-hour=`${i}:00`]");
-    // var testHour = testHourEl.attr('data-hour');
+  let cHour = moment().format("HH:mm");
   
-    var currentHour = moment();
-    var testHour = moment().set('hour', 14);
-  
-    console.log(`test hour is ${testHour} type= ${typeof (testHour)}`);
-    console.log(`and currentHour is ${currentHour} type= ${typeof (currentHour)}`);
-    console.log('comparing testHour.isBefore currentHour')
+  console.log(`test hour is ${testHour} type= ${typeof (testHour)}`);
+  console.log(`and cHour is ${cHour} type= ${typeof (cHour)}`);
+  console.log('comparing testHour.isBefore cHour')
  
-    if (moment(testHour, "hour").isBefore(currentHour, "hour")) { console.log("before!"); }
-    else { console.log("after!"); }
+  if (moment("hour", testHour).isBefore("hour", cHour)) {console.log("before!");}
+  else { console.log("after!"); }
 
-    console.log('comparing currentHour.isBefore testHour')
-    if (moment(currentHour, "hour").isBefore(testHour, "hour")) { console.log("before!"); }
-    else { console.log("after!"); }
-    
-  }
+  console.log('comparing cHour.isBefore testHour')
+  if (moment("hour", cHour).isBefore("hour", testHour)) {console.log("before!");}
+  else { console.log("after!"); }
 });
 
 
 /////////// CHANGE THAT TO parsInt ///////////
 
-// if (moment(testHour,"hour").isBefore(currentHour ,"hour")) {console.log("before!");}
-//   else { console.log("after!"); }
 
-//   console.log('comparing currentHour.isBefore testHour')
-//   if (moment(currentHour, "hour").isBefore(testHour , "hour")) {console.log("before!");}
-//   else { console.log("after!"); }
 
 //////////////////////////////////////
 //  STORAGE

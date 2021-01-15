@@ -1,3 +1,11 @@
+/* try to fix squishiness */
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ --- Nope, that didn't help --- */
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
