@@ -35,7 +35,7 @@ console.log(`hour is ${cHour}`);
 //   console.log("ready");
 //   $(".textarea").addClass("present");
 // });
-  
+
 // // jQuery
 // $(document).ready( function () {
 //   console.log("ready");
@@ -51,24 +51,57 @@ console.log(`hour is ${cHour}`);
 //   console.log("myTime " + myTime);
 //   if (moment(myTime).isBefore(cHour))console.log("before!");
 //   else console.log("after!");
-  
+
 //////////////////////////////////////
 //  STORAGE
 ////////////////////////////////////
-// var toDoItems = [
-// { tim: '',
-//   tsk: '' }]
-// list = todoitems array of objects or 
+var toDoItems = [
+  {
+    time: '',
+    task: ''
+  }]
+
+//toDolist = parsed array of toDoItems or 
 // an empty array if none.
+
 var toDoList = JSON.parse(localStorage.getItem('toDoItems')) || [];
+
 // is toDoList an argument? From where?
-function getToDoList(toDoList) {
+function displayToDoList(toDoList) {
   // clear the html in every textblock
-  $("textarea").text('kick me');//
+  $("textarea").text('kick me');
   $("textarea").empty();
   // go through the list and post the itemms
+  // $$$$$$$$ PARSING TIME IS CONFUSING ME
+  // for (var i = 0; i < list.length; i++) {
+  //   var tTime = toDoList[i].time;
+  //   var tTask = toDoList[i].task;
+  //   // CONVERT tTime to an ID - as in 
+  //   // 3:00 becomes ID="03:00"
+  //   // Locate the hour with that ID
+  //   // set the next-sibling text field = task
+  }
 
-}
+//   function saveToDoList(toDoList) {
+//     localStorage.setItem('toDoItems');
+//   }
+// }
 
-//test it
-getToDoList(toDoList);
+
+
+////////////////////////////////////////////////////
+// WAIT FOR SAVE CLICK 
+//  Any time there's a click on save, save the whole list
+// $('.saveBtn').on('click', function (event) {
+//   event.preventDefault();
+//   // $$$ Get textfield col from parent row
+//   var newTask = $this.text().trim()
+//   var newTime = /*hour field of */ $this.val(); 
+//  converted to what ?
+  // toDoItems.time.push(newTime);
+  // toDoItems.task.push(newTask);
+  // saveToDoList(toDoList);
+
+  //test it
+
+  displayToDoList(toDoList);
