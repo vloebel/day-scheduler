@@ -35,7 +35,7 @@ function styleSchedule (startHr, endHr) {
   var currentHour = moment();
   for (i = startHr; i <= endHr; i++) {
     hourToCheck = `${i}:00`;
-    console.log('hourToCheck is ' + hourToCheck);
+    // console.log('hourToCheck is ' + hourToCheck);
     // make an id from the for loop index
     nextID = (`${i}`)
     nextEl = $("#" + nextID);
