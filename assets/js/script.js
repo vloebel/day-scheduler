@@ -6,10 +6,9 @@
 let cDay = moment().format("dddd MMMM-DD-YYYY")
 $("#currentDay").text(cDay);
 
-
-///TRY THIS var time = moment(timestring);
-
-
+//  business day 9-5
+const startHr = 9;
+const endHr = 17;
 
 
 // Load an empty HTML calendar
@@ -25,82 +24,37 @@ $("#currentDay").text(cDay);
 // repeat to refresh screen
 
 
-// /// testing a few things
-// $('#save9').on('click', function () {
-//   alert('I will save you.');
-// })
-
-
-
-let currentHour = moment().format("HH:mm")
-
-
-console.log(`time is ${currentHour}`);
-
-
-
-
-// $(document).ready(function () {
-//   console.log("ready");
-//   $(".textarea").addClass("present");
-// });
-
-// // jQuery
-// $(document).ready( function () {
-//   console.log("ready");
-//   $("textarea").addClass("present");
-//   if (cHour < $("#03")) console.log("before three o'clock");
-//   else console.log("after three o'clock");
-//   $("#03").addClass("future");
-// });
-
-// jQuery
-$(document).ready( function () {
-  console.log("ready");
-  $("textarea").addClass("present");
-
-  // for each hour in the calendar,
-  // use i to get the textarray element by id
+//////////////////////////////////////////
+// FUNCTION styleSchedule (startHr, endHr)
+// for each hour on the schedule
+// - select the task text area
+// - test its ID against the current time
+// - style it with css classes: past present future
   
+function styleSchedule (startHr, endHr) {
   var currentHour = moment();
-
-  for (i = 9; i <= 17; i++) {
-    timeToCheck = `${i}:00`;
-    nextID = "#".concat(`${i}`);
-    var nextEl = $("nextID"); 
-    
-    
-    console.log(timeToCheck);
-    console.log(nextID);
-    console.log(nextEl);
-  
-     
+  for (i = startHr; i <= endHr; i++) {
+    hourToCheck = `${i}:00`;
+    console.log('hourToCheck is ' + hourToCheck);
+    // make an id from the for loop index
+    nextID = (`${i}`)
+    nextEl = $("#" + nextID);
+    // i is the "hour" we are testing     
     var testHour = moment().set('hour', i);
-  
-    console.log(`test hour is ${testHour} type= ${typeof (testHour)}`);
-    console.log(`and currentHour is ${currentHour} type= ${typeof (currentHour)}`);
-    
- 
+    // Remove any existing time class
+   
+    $(nextEl).removeClass("past present future");
+
     if (moment(testHour, "hour").isBefore(currentHour, "hour")) {
-      console.log(`test hour is before current hour`);
+      $(nextEl).addClass("past");
+    } else if (moment(testHour, "hour").isAfter(currentHour, "hour")) {
+      $(nextEl).addClass("future");
+    } else {
+      $(nextEl).addClass("present");
     }
-    else if (moment(currentHour, "hour").isBefore(testHour, "hour")) {
-      console.log(`test hour is AFTER current hour.`);
-    }
-    else { console.log("Test hour is the present!"); }
-    
   }
-});
+}
 
-
-/////////// CHANGE THAT TO parsInt ///////////
-
-// if (moment(testHour,"hour").isBefore(currentHour ,"hour")) {console.log("before!");}
-//   else { console.log("after!"); }
-
-//   console.log('comparing currentHour.isBefore testHour')
-//   if (moment(currentHour, "hour").isBefore(testHour , "hour")) {console.log("before!");}
-//   else { console.log("after!"); }
 
 //////////////////////////////////////
 //  STORAGE
@@ -130,7 +84,7 @@ function displayToDoList(toDoList) {
   //   // 3:00 becomes ID="03:00"
   //   // Locate the hour with that ID
   //   // set the next-sibling text field = task
-  }
+}
 
 //   function saveToDoList(toDoList) {
 //     localStorage.setItem('toDoItems');
@@ -149,10 +103,10 @@ function displayToDoList(toDoList) {
 //   var newTask = $this.text().trim()
 //   var newTime = /*hour field of */ $this.val(); 
 //  converted to what ?
-  // toDoItems.time.push(newTime);
-  // toDoItems.task.push(newTask);
-  // saveToDoList(toDoList);
+// toDoItems.time.push(newTime);
+// toDoItems.task.push(newTask);
+// saveToDoList(toDoList);
 
-  //test it
-
-  displayToDoList(toDoList);
+//test it
+styleSchedule(startHr, endHr);
+displayToDoList(toDoList);
