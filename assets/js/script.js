@@ -59,32 +59,35 @@ $(document).ready( function () {
   console.log("ready");
   $("textarea").addClass("present");
 
+  // for each hour in the calendar,
+  // use i to get the textarray element by id
+  
+  var currentHour = moment();
+
   for (i = 9; i <= 17; i++) {
     timeToCheck = `${i}:00`;
-    console.log(timeToCheck);
     nextID = "#".concat(`${i}`);
+    var nextEl = $("nextID"); 
+    
+    
+    console.log(timeToCheck);
     console.log(nextID);
-    var nextEl = $("nextID");
-
     console.log(nextEl);
-  }
   
-    // var nextEl = $("textarea[data-hour=`${i}:00`]");
-    // var testHour = testHourEl.attr('data-hour');
-  
-    var currentHour = moment();
-    var testHour = moment().set('hour', 14);
+     
+    var testHour = moment().set('hour', i);
   
     console.log(`test hour is ${testHour} type= ${typeof (testHour)}`);
     console.log(`and currentHour is ${currentHour} type= ${typeof (currentHour)}`);
-    console.log('comparing testHour.isBefore currentHour')
+    
  
-    if (moment(testHour, "hour").isBefore(currentHour, "hour")) { console.log("before!"); }
-    else { console.log("after!"); }
-
-    console.log('comparing currentHour.isBefore testHour')
-    if (moment(currentHour, "hour").isBefore(testHour, "hour")) { console.log("before!"); }
-    else { console.log("after!"); }
+    if (moment(testHour, "hour").isBefore(currentHour, "hour")) {
+      console.log(`test hour is before current hour`);
+    }
+    else if (moment(currentHour, "hour").isBefore(testHour, "hour")) {
+      console.log(`test hour is AFTER current hour.`);
+    }
+    else { console.log("Test hour is the present!"); }
     
   }
 });
