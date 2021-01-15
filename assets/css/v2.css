@@ -23,6 +23,7 @@ textarea{
 
 .description{
   white-space: pre-wrap;
+  border:1px solid red;
 }
 
 .time-block{
@@ -57,7 +58,12 @@ textarea{
   color: white;
 }
 
+.btn-col{
+  padding-left:0;
+}
+
 .saveBtn {
+  padding:2em;
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
