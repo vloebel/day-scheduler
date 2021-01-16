@@ -61,20 +61,68 @@ function styleSchedule (startHr, endHr) {
 ////////////////////////////////////
 var toDoItems = [
   {
-    time: '',
+    time: '10:00',
+    task: 'Finish javaScript challenge'
+  },
+  {
+    time: '9:00',
+    task: 'Stare at javaScript challenge'
+  },
+  {
+    time: '17:00',
     task: ''
+  },
+  {
+    time: '2:00',
+    task: 'out of range'
+  },
+  {
+    time: '15:00',
+    task: 'rejoice over js challenge'
   }]
 
-//toDolist = parsed array of toDoItems or 
-// an empty array if none.
+//Get the taskList of toDoItems
 
-var toDoList = JSON.parse(localStorage.getItem('toDoItems')) || [];
-
-// is toDoList an argument? From where?
-function displayToDoList(toDoList) {
-  // clear the html in every textblock
-  $("textarea").text('kick me');
+// var taskList = JSON.parse(localStorage.getItem('toDoItems')) || [];
+var taskList = toDoItems; //test pointer
+///////////////////////////////////////
+// FUNCTION UPDATESCHEDULE
+// Re-initialize the
+// tasks in the schedule to make sure it's
+// all current and correct
+//////////////////////////////////////
+function updateSchedule() {
+  // clear all textblocks
   $("textarea").empty();
+  // check the time and formatting]
+  styleSchedule(startHr, endHr);
+  // append the text items
+  for (i = 0; i < taskList.length; i++) {
+    // Use the time as an id to get the schedule hour
+    var nextID = parseInt(taskList[i].time);
+    //  skip this i if input not valid
+    if (nextID < startHr || nextID > endHr) {
+      // console.log(`invalid time ${taskList[i].time}`);
+      continue;
+    } else if (taskList[i].task == null ||  
+        taskList[i].task == undefined || 
+        taskList[i].task.length == 0) {
+        // console.log(`empty task at time:  ${taskList[i].time}`);
+    } else {
+    var nextEl = $(`#${nextID}`);
+    console.log(nextEl);
+    nextEl.text(taskList[i].task);
+    }
+  }
+}
+
+
+
+
+
+
+
+  
   // go through the list and post the itemms
   // $$$$$$$$ PARSING TIME IS CONFUSING ME
   // for (var i = 0; i < list.length; i++) {
@@ -84,7 +132,7 @@ function displayToDoList(toDoList) {
   //   // 3:00 becomes ID="03:00"
   //   // Locate the hour with that ID
   //   // set the next-sibling text field = task
-}
+
 
 //   function saveToDoList(toDoList) {
 //     localStorage.setItem('toDoItems');
@@ -108,5 +156,5 @@ function displayToDoList(toDoList) {
 // saveToDoList(toDoList);
 
 //test it ttttt
-styleSchedule(startHr, endHr);
-displayToDoList(toDoList);
+
+updateSchedule();
