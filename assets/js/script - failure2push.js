@@ -10,13 +10,11 @@ $("#currentDay").text(cDay);
 const startHr = 9;
 const endHr = 17;
 
-
 //  Initialize Calendar
 //  I did not intend to hard code this but I cannot 
 //  figure out how to push into this array and 
 //  my askBCS helper couldn't figure out how either
-
-var scheduleList = [
+var toDoItems = [
   {
     time: '9:00',
     task: 'Stare at javaScript challenge'
@@ -54,6 +52,7 @@ var scheduleList = [
     task: 'rejoice over js challenge'
   }];
 
+  // var taskArr = toDoItems; 
 
 
 // Load an empty HTML calendar
@@ -109,12 +108,10 @@ function styleSchedule(startHr, endHr) {
 
 
 ///////////////////////////////////////
-// FUNCTION updateSchedule
-// Rewrite the display 
-// this was designed to handle a scheduleList
-// with the hours in any sequence, but
-// the spec changed, so it's a little more
-// complicated than it needs to be
+// FUNCTION UPDATESCHEDULE
+// Re-initialize the
+// tasks in the schedule to make sure it's
+// all current and correct
 //////////////////////////////////////
 
 function updateSchedule() {
@@ -143,30 +140,49 @@ function updateSchedule() {
 
 
 ///////////////////////////////////
-// EVENT CLICK saveBtn
-// update scheduleList with the new text
-// save to local storage
-// refresh the display
+//////// SAVE BUTTON CLICK
 ///////////////////////////////////
 $(".time-block").on("click", ".saveBtn", function () {
-  var newToDo = $(this).siblings(".description")
+  var newItem = {}
+  newItem.task = $(this).siblings(".description")
     .val();
-  var newTime = $(this).siblings(".description")
+  newItem.time = $(this).siblings(".description")
     .attr("id");  
-  var key = parseInt(newTime) - startHr;
-  scheduleList[key].task = newToDo;
-  scheduleList[key].time = newTime;
-  //debug:
-  // console.log(`Saved ${scheduleList[key].task} at ${scheduleList[key].time} with index[${key}]`);
-  saveScheduleList()
-  updateSchedule();
+  console.log(`I need to save ${newItem.task} at ${newItem.time}`);
+  // if this time block already had a description in
+  // scheduleList, replace the task. otherwise add it to list
+  for (var i = 0; i < scheduleList.length; i++) {
+    console.log(`scheduleList[${i}] is ${scheduleList[i].time}`);
+    console.log(`scheduleList[${i}] is ${scheduleList[i].task}`);
+
+
+    // if (i == scheduleList.length) {
+    //   // scheduleList.push(newItem); 
+
+    //   // scheduleList[i].task = newItem.task; also wrong
+    //   // scheduleList[i].time = newItem.time;
+
+    //   // scheduleList[i] = newItem; //but is that a pointer?
+
+    //   console.log("added " + scheduleList[i] + "at pos " +[i]);
+    // }
+    // else if (scheduleList[i].time == i) {
+    //   console.log("got $time of " + i);
+    //   scheduleList[i].task = newText;
+    //   console.log("inserted " + scheduleList[i] + "at pos " +[i]);
+    // }
+  }
+  scheduleList[3].task = "bite me";
+  scheduleList[3].time = 15;
+  console.log(`scheduleList 3 is ${scheduleList[3].time}`);
+  console.log(`scheduleList 3 is ${scheduleList[3].task}`);
+
+
 });
 
 
-////////////////////////////////////////
-// EVENT Textarea
-// update textarea in memory
-//////////////////////////////////////
+/////////////////////////////////////////////////////////
+//////// TEXTAREA CLICK
 $(".time-block").on("click" ,".description", function () {
   var taskTxt = $(this)
     .text()
@@ -175,39 +191,9 @@ $(".time-block").on("click" ,".description", function () {
     var taskTime = this.id;  
     console.log(`I need to do ${taskTxt} at ${taskTime}`);
 });
-//////////////////////////////////////////
-//  FUNCTION saveScheduleList ()
-//  Saves ScheduleList to local storage
-/////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
-function saveScheduleList (){
-  for (i = startHr; i <= endHr; i++) {
-    time = i.toString();
-    indx = i - startHr;
-    localStorage.setItem(time, scheduleList[indx].task);
-        
-    }
-  console.log("List Saved");
-}
-
-//////////////////////////////////////////
-//  FUNCTION loadScheduleList ()
-//  Load ScheduleList from local storage
-/////////////////////////////////////////
-
-function loadScheduleList (){
-  for (i = startHr; i <= endHr; i++) {
-    time = i.toString();
-    indx = i - startHr;
-    console.log(`time = ${time} which is a ${typeof (time)}`);
-    scheduleList[indx].task = JSON.parse(localStorage.getItem(time));
-    if (!scheduleList[indx].task) {
-      scheduleList[indx].time = time;
-      scheduleList[indx].task = 'Hi, Mom';
-    }
-    console.log(`I need to do ${scheduleList[indx].task} at ${scheduleList[indx].time}`);
-  }
-}
-
-loadScheduleList();
+let scheduleList = toDoItems;
+console.log ("length of let scheduleList" + scheduleList.length)
+// scheduleList = JSON.parse(localStorage.getItem('toDoItems')) || [];
 updateSchedule();
