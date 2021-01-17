@@ -1,29 +1,40 @@
-//
-//  https://github.com/vloebel/day-scheduler/tree/develop
-//
+// One-day task schedule
+// Vicky Loebel - UA Code Bootcamp module 5
+/////////////////////////////////////////////
+// PSEUDOCODE
+// -Load any pre-existing tasks from local storage
+// -Get the current real world time and use it to
+//   style the tasks "past" "present" or "future"
+// -display the tasks in the schedule
+// - On save button click
+// -- Get the task from the same row in
+//      the calendar
+// -- Save all tasks to local storage
+// -- Update the style and tasks on the display
+/////////////////////////////////////////////
 
-// Display current day at the top of the calendar
+// Display current day at the top of the schedule
 let cDay = moment().format("dddd MMMM-DD-YYYY")
 $("#currentDay").text(cDay);
 
-//  business day 9-5
+// set the hours of the business day
 const startHr = 9;
 const endHr = 17;
 
-
-//  Initialize Calendar
+//  Initialize Schedule
 //  I did not intend to hard code this but I cannot 
 //  figure out how to push into this array and 
 //  my askBCS helper couldn't figure out how either
+//  corresponds to the hours in the HTML
 
 var scheduleList = [
   {
     time: '9:00',
-    task: 'Stare at javaScript challenge'
+    task: ''
   },
   {
     time: '10:00',
-    task: 'Finish javaScript challenge'
+    task: ''
   },
   {
     time: '11:00',
@@ -51,45 +62,31 @@ var scheduleList = [
   },
   {
     time: '17:00',
-    task: 'rejoice over js challenge'
+    task: ''
   }];
 
-
-
-// Load an empty HTML calendar
-// Load a todo list from storage
-// Assign each item to a textarea based
-//    on it's time attribute
-// Color each text area "past present or future"
-//    based on it's relationship to current time
-
-// When SAVE button is clicked
-// update the todo list for the corresponding time
-// save in local storage
-// repeat to refresh screen
-
-
-//////////////////////////////////////////
+// ------------------------------------
 // FUNCTION styleSchedule (startHr, endHr)
 // for each hour on the schedule
-// - select the task text area
-// - test its ID against the current time
+// - select the task textarea
+// - test its id against the current time
 // - style it with css classes: past present future
-
+// this should run after every "save" to local
+// storage in case the current hour has changed
+// ------------------------------------
 function styleSchedule(startHr, endHr) {
   var currentHour = moment();
   for (i = startHr; i <= endHr; i++) {
     hourToCheck = `${i}:00`;
-    // console.log('hourToCheck is ' + hourToCheck);
     // make an id from the for loop index
+    // and select the next textarea
     nextID = (`${i}`);
     nextEl = $("#" + nextID);
-    // i is the "hour" we are testing     
+    // i represents the "hour" we are testing     
     var testHour = moment().set('hour', i);
-    // Remove any existing time class
-
+    // Remove any previous time class
+    // and assign the new one.
     $(nextEl).removeClass("past present future");
-
     if (moment(testHour, "hour").isBefore(currentHour, "hour")) {
       $(nextEl).addClass("past");
     } else if (moment(testHour, "hour").isAfter(currentHour, "hour")) {
@@ -100,23 +97,20 @@ function styleSchedule(startHr, endHr) {
   }
 }
 
-
-
-///////////////////////////////////////
+// ------------------------------------
 // FUNCTION updateSchedule
-// Rewrite the display 
-// this was designed to handle a scheduleList
-// with the hours in any sequence, but
-// the spec changed, so it's a little more
-// complicated than it needs to be
-//////////////////////////////////////
-
+// Rewrite the textareas 
+// on the schedule. 
+// Runs after every save
+// ------------------------------------
 function updateSchedule() {
   // clear all textblocks
   $("textarea").empty();
   // check the time and formatting]
   styleSchedule(startHr, endHr);
-  // append the text items
+  // insert the text items
+  // i is the id of the textarea associated
+  // with each hour on the schedule
   for (i = startHr; i <= endHr; i++) {
     indx = i - startHr;
     var nextEl = $(`#${i}`);
@@ -124,12 +118,11 @@ function updateSchedule() {
     }
   }
 
-
 ///////////////////////////////////
-// EVENT CLICK saveBtn
+// EVENT click saveBtn
 // update scheduleList with the new text
-// save to local storage
-// refresh the display
+// -call function to save to local storage
+// -call function to update display
 ///////////////////////////////////
 $(".time-block").on("click", ".saveBtn", function () {
   var newToDo = $(this).siblings(".description")
@@ -145,24 +138,26 @@ $(".time-block").on("click", ".saveBtn", function () {
   updateSchedule();
 });
 
+// ------------------------------------
+// EVENT click Textarea DEBUG ONLY
+// no action is required on textarea edits  
+// the new text sits in memory until user
+// clicks save button
+// ------------------------------------
+// $(".time-block").on("click" ,".description", function () {
+//   var taskTxt = $(this)
+//     .text()
+//     .trim(); 
+//     var taskTime = this.id;  
+//     console.log(`I need to do ${taskTxt} at ${taskTime}`);
+// });
+// ------------------------------------
 
-////////////////////////////////////////
-// EVENT Textarea
-// update textarea in memory
-//////////////////////////////////////
-$(".time-block").on("click" ,".description", function () {
-  var taskTxt = $(this)
-    .text()
-    .trim(); 
-  // debug
-    var taskTime = this.id;  
-    console.log(`I need to do ${taskTxt} at ${taskTime}`);
-});
-//////////////////////////////////////////
+
+// ------------------------------------
 //  FUNCTION saveScheduleList ()
 //  Saves ScheduleList to local storage
-/////////////////////////////////////////
-
+// ------------------------------------
 function saveScheduleList (){
   for (i = startHr; i <= endHr; i++) {
     time = i.toString();
@@ -173,11 +168,10 @@ function saveScheduleList (){
   console.log("List Saved");
 }
 
-//////////////////////////////////////////
+// ------------------------------------
 //  FUNCTION loadScheduleList ()
 //  Load ScheduleList from local storage
-/////////////////////////////////////////
-
+// ------------------------------------
 function loadScheduleList (){
   for (i = startHr; i <= endHr; i++) {
     time = i.toString();
