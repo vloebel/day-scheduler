@@ -11,8 +11,6 @@
 * write list and style calendar
 * Set up HTML & basic CSS
 
-TBD: Source html and css were provided, and our Instructor gave us a sample bootstrap row to use. The resulting schedule appears compressed in width. Class instructor said not to focus on it for this assignment.
-
 ## Overview
 Create a simple calendar application that allows the user to save events for each hour of the business day. The application uses the [Moment.js](https://momentjs.com/) library to work with date and time.
 
