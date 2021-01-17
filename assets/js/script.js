@@ -138,7 +138,9 @@ $(".time-block").on("click", ".saveBtn", function () {
     console.log(`${i} <= ${scheduleList.length}`);
     if (i == scheduleList.length) {
       // scheduleList.push(newItem); TBDthis is wrong but why?
-      scheduleList[i] = newItem;
+      scheduleList[i].task = newItem.task;
+      scheduleList[i].time = newItem.time;
+
       console.log("added " + scheduleList[i] + "at pos " +[i]);
     }
     // else if (scheduleList[i].time == i) {
@@ -148,7 +150,7 @@ $(".time-block").on("click", ".saveBtn", function () {
     // }
   }
   console.log("after for loop schedule list is " + scheduleList);
-   
+  
 });
 
 
@@ -164,8 +166,7 @@ $(".time-block").on("click" ,".description", function () {
 });
 /////////////////////////////////////////////////////////////
 
-let scheduleList = {}
+let scheduleList = toDoItems;
 console.log ("length of let scheduleList" + scheduleList.length)
-
-scheduleList = JSON.parse(localStorage.getItem('toDoItems')) || [];
-console.log("hoooo" + scheduleList.length);
+// scheduleList = JSON.parse(localStorage.getItem('toDoItems')) || [];
+updateSchedule();
