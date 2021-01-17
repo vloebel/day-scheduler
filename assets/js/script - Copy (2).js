@@ -26,8 +26,8 @@ var toDoItems = [
     task: 'rejoice over js challenge'
   }];
 
-  // var taskArr = toDoItems; 
 
+var taskArr = toDoItems; 
 
 // Load an empty HTML calendar
 // Load a todo list from storage
@@ -87,27 +87,26 @@ function styleSchedule(startHr, endHr) {
 // tasks in the schedule to make sure it's
 // all current and correct
 //////////////////////////////////////
-
 function updateSchedule() {
   // clear all textblocks
   $("textarea").empty();
   // check the time and formatting]
   styleSchedule(startHr, endHr);
   // append the text items
-  for (i = 0; i < scheduleList.length; i++) {
+  for (i = 0; i < taskArr.length; i++) {
     // Use the time as an id to get the schedule hour
-    var nextID = parseInt(scheduleList[i].time);
+    var nextID = parseInt(taskArr[i].time);
     //  skip this i if input not valid
     if (nextID < startHr || nextID > endHr) {
       // console.log(`invalid time ${taskList[i].time}`);
       continue;
-    } else if (scheduleList[i].task == null ||
-      scheduleList[i].task == undefined ||
-      scheduleList[i].task.length == 0) {
+    } else if (taskArr[i].task == null ||
+      taskArr[i].task == undefined ||
+      taskArr[i].task.length == 0) {
       // console.log(`empty task at time:  ${taskList[i].time}`);
     } else {
       var nextEl = $(`#${nextID}`);
-      nextEl.text(scheduleList[i].task);
+      nextEl.text(taskArr[i].task);
     }
   }
 }
@@ -118,36 +117,39 @@ function updateSchedule() {
 
 
 
+////////////////////////////////////////////////////
+// WAIT FOR SAVE CLICK 
+//  Any time there's a click on save, save the whole list
+// $('.saveBtn').on('click', function (event) {
+//   event.preventDefault();
 
 
+updateSchedule();
 
-
-///////////////////////////////////
+/////////////////////////////////////////////////
 //////// SAVE BUTTON CLICK
-///////////////////////////////////
-$(".time-block").on("click", ".saveBtn", function () {
-  var newItem = {}
-  newItem.task = $(this).siblings(".description")
+$(".time-block").on("click" ,".saveBtn", function () {
+  var newText = $(this).siblings(".description")
     .val();
-  newItem.time = $(this).siblings(".description")
+  var taskTime = $(this).siblings(".description")
     .attr("id");  
-  console.log(`I need to save ${newItem.task} at ${newItem.time}`);
+  console.log(`I need to save ${newText} at ${taskTime}`);
   // if this time block already had a description in
-  // scheduleList, replace the task. otherwise add it to list
-  for (var i = 0; i <= scheduleList.length; i++) {
-    console.log(`${i} <= ${scheduleList.length}`);
-    if (i == scheduleList.length) {
-      // scheduleList.push(newItem); TBDthis is wrong but why?
-      scheduleList[i] = newItem;
-      console.log("added " + scheduleList[i] + "at pos " +[i]);
+  // taskArr, replace the task. otherwise add it to taskArr
+  for (var i = 0; i <= taskArr.length; i++) {
+    if (i == taskArr.length) {
+      // taskArr[i].time = taskTime;
+      // taskArr[i].task = newText;
+      taskArr[i].push(taskTime, newText);
+      console.log("added " + taskArr[i] + "at pos "[i]);
     }
-    // else if (scheduleList[i].time == i) {
-    //   console.log("got $time of " + i);
-    //   scheduleList[i].task = newText;
-    //   console.log("inserted " + scheduleList[i] + "at pos " +[i]);
-    // }
+    else if (taskArr[i].time == i) {
+      console.log("got task[arr].time of " + i);
+      taskArr[i].task = newText;
+      console.log(`inserted ${taskArr[i]}${"at pos "[i]}`);
+    }
   }
-  console.log("after for loop schedule list is " + scheduleList);
+  console.log(taskArr);
    
 });
 
@@ -158,14 +160,10 @@ $(".time-block").on("click" ,".description", function () {
   var taskTxt = $(this)
     .text()
     .trim(); 
-  // debug
     var taskTime = this.id;  
     console.log(`I need to do ${taskTxt} at ${taskTime}`);
 });
 /////////////////////////////////////////////////////////////
 
-let scheduleList = {}
-console.log ("length of let scheduleList" + scheduleList.length)
 
-scheduleList = JSON.parse(localStorage.getItem('toDoItems')) || [];
-console.log("hoooo" + scheduleList.length);
+// var taskArr = JSON.parse(localStorage.getItem('toDoItems')) || [];
