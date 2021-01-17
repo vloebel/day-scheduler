@@ -101,12 +101,6 @@ function styleSchedule(startHr, endHr) {
 }
 
 
-//////////////////////////////////////
-//  STORAGE
-////////////////////////////////////
-
-
-
 
 ///////////////////////////////////////
 // FUNCTION updateSchedule
@@ -123,23 +117,12 @@ function updateSchedule() {
   // check the time and formatting]
   styleSchedule(startHr, endHr);
   // append the text items
-  for (i = 0; i < scheduleList.length; i++) {
-    // Use the time as an id to get the schedule hour
-    var nextID = parseInt(scheduleList[i].time);
-    //  skip this i if input not valid
-    if (nextID < startHr || nextID > endHr) {
-      // console.log(`invalid time ${taskList[i].time}`);
-      continue;
-    } else if (scheduleList[i].task == null ||
-      scheduleList[i].task == undefined ||
-      scheduleList[i].task.length == 0) {
-      // console.log(`empty task at time:  ${taskList[i].time}`);
-    } else {
-      var nextEl = $(`#${nextID}`);
-      nextEl.text(scheduleList[i].task);
+  for (i = startHr; i <= endHr; i++) {
+    indx = i - startHr;
+    var nextEl = $(`#${i}`);
+      nextEl.text(scheduleList[indx].task);
     }
   }
-}
 
 
 ///////////////////////////////////
@@ -200,7 +183,9 @@ function loadScheduleList (){
     time = i.toString();
     indx = i - startHr;
     console.log(`time = ${time} which is a ${typeof (time)}`);
-    scheduleList[indx].task = JSON.parse(localStorage.getItem(time));
+    // scheduleList[indx].task = JSON.parse(localStorage.getItem(time));
+    scheduleList[indx].task = localStorage.getItem(time);
+
     if (!scheduleList[indx].task) {
       scheduleList[indx].time = time;
       scheduleList[indx].task = 'Hi, Mom';
