@@ -13,19 +13,14 @@
 // -- Update the style and tasks on the display
 /////////////////////////////////////////////
 
-// Display current day at the top of the schedule
-let cDay = moment().format("dddd MMMM-DD-YYYY")
-$("#currentDay").text(cDay);
 
-// set the hours of the business day
+//-----------------------------------------
+// DATA DECLARATIONS
+//-----------------------------------------
+
+// start and end of business day
 const startHr = 9;
 const endHr = 17;
-
-//  Initialize Schedule
-//  I did not intend to hard code this but I cannot 
-//  figure out how to push into this array and 
-//  my askBCS helper couldn't figure out how either
-//  corresponds to the hours in the HTML
 
 var scheduleList = [
   {
@@ -165,7 +160,6 @@ function saveScheduleList (){
     localStorage.setItem(time, scheduleList[indx].task);
         
     }
-  console.log("List Saved");
 }
 
 // ------------------------------------
@@ -176,17 +170,21 @@ function loadScheduleList (){
   for (i = startHr; i <= endHr; i++) {
     time = i.toString();
     indx = i - startHr;
-    console.log(`time = ${time} which is a ${typeof (time)}`);
-    // scheduleList[indx].task = JSON.parse(localStorage.getItem(time));
     scheduleList[indx].task = localStorage.getItem(time);
-
     if (!scheduleList[indx].task) {
       scheduleList[indx].time = time;
-      scheduleList[indx].task = 'Hi, Mom';
+      scheduleList[indx].task = '';
     }
-    console.log(`I need to do ${scheduleList[indx].task} at ${scheduleList[indx].time}`);
   }
 }
+//-----------------------------------------------
+// START OF PROGRAM
+//-----------------------------------------------
 
+// Display current day 
+let cDay = moment().format("dddd MMMM-DD-YYYY")
+$("#currentDay").text(cDay);
+// display the schedule and then wait for
+// save button click
 loadScheduleList();
 updateSchedule();
