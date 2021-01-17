@@ -79,7 +79,7 @@ function styleSchedule(startHr, endHr) {
 ////////////////////////////////////
 
 
-//Get the taskList of toDoItems
+
 
 ///////////////////////////////////////
 // FUNCTION UPDATESCHEDULE
@@ -113,15 +113,6 @@ function updateSchedule() {
 }
 
 
-
-
-
-
-
-
-
-
-
 ///////////////////////////////////
 //////// SAVE BUTTON CLICK
 ///////////////////////////////////
@@ -137,9 +128,12 @@ $(".time-block").on("click", ".saveBtn", function () {
   for (var i = 0; i <= scheduleList.length; i++) {
     console.log(`${i} <= ${scheduleList.length}`);
     if (i == scheduleList.length) {
-      // scheduleList.push(newItem); TBDthis is wrong but why?
-      scheduleList[i].task = newItem.task;
-      scheduleList[i].time = newItem.time;
+      // scheduleList.push(newItem); 
+
+      // scheduleList[i].task = newItem.task; also wrong
+      // scheduleList[i].time = newItem.time;
+
+      // scheduleList[i] = newItem; //but is that a pointer?
 
       console.log("added " + scheduleList[i] + "at pos " +[i]);
     }
